@@ -24,4 +24,9 @@ let stocks = {
     });
  };
 
- order(2000, ()=>console.log(`${stocks.Fruits[0]}`));
+ order(2000, ()=>console.log(`${stocks.Fruits[0]}`))
+ // promise chaining
+ 
+ .then(()=>{
+    return order(0000, ()=>console.log("production has started"));
+ })
