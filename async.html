@@ -4,37 +4,42 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Asynchronous JS Example</title>
 </head>
 <body>
-    <button id="xhr">Click to start request</button>
-    <button id = "reload">Reload</button>
-    <pre readonly class="event-log"></pre>
+   
+        <button id = "request">Click here to start request</button>
+        <button id = "reload">Reload</button>
+
+        <pre class = "event"></pre>
+
 
 
     <script>
 
-        const log = document.querySelector('.event-log');
+        const event_log = document.querySelector('.event');
 
-        document.querySelector('#xhr').addEventListener('click', () => {
-            log.textContent = '';
-            const xhr = new XMLHttpRequest();
+        document.querySelector('#request').addEventListener('click',()=> {
+            event_log.textContent = '';
 
-            xhr.addEventListener('loadend', () => {
-                log.textContent = `${log.textContent}Finished with status: ${xhr.status}`;
+            const xmlHttpRequest = new XMLHttpRequest();
+
+            xmlHttpRequest.addEventListener('loadend', ()=> {
+                event_log.textContent = `${event_log.textContent} Status after completion: ${xmlHttpRequest.status}\n`;
+
             });
+            // takes time to request
+            xmlHttpRequest.open('GET', 'https://raw.githubusercontent.com/mdn/content/main/files/en-us/_wikihistory.json');
 
-            xhr.open('GET', 'https://raw.githubusercontent.com/mdn/content/main/files/en-us/_wikihistory.json');
-            xhr.send();
-            log.textContent = `${log.textContent}started XHR request\n`;
-
+            xmlHttpRequest.send();
+            // runs first
+            event_log.textContent = `${event_log.textContent} Started XMLHTTPRequest\n`;
         });
 
-        document.querySelector('#reload').addEventListener('click', ()=>{
-            log.textContent = '';
+        document.querySelector('#reload').addEventListener('click', ()=> {
+            event_log.textContent = '';
             document.location.reload();
         })
     </script>
-
 </body>
 </html>
